@@ -22,7 +22,7 @@ func main() {
         log.Fatalf("Error connecting to MQTT broker: %v", err)
     }
 
-    useCase := usecases.NewSendDataUseCase(repo, *sender)
+    useCase := usecases.NewSendDataUseCase(repo, sender)
 
     controller := controllers.NewDataController(useCase)
 
