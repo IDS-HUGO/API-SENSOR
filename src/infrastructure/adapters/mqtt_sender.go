@@ -6,12 +6,10 @@ import (
     "log"
 )
 
-// MQTTSender es el adaptador que envía mensajes a un broker MQTT.
 type MQTTSender struct {
     Client mqtt.Client
 }
 
-// NewMQTTSender crea una nueva instancia de MQTTSender.
 func NewMQTTSender(broker string, clientID string) (*MQTTSender, error) {
     opts := mqtt.NewClientOptions().AddBroker(broker).SetClientID(clientID)
     client := mqtt.NewClient(opts)
@@ -23,7 +21,6 @@ func NewMQTTSender(broker string, clientID string) (*MQTTSender, error) {
     return &MQTTSender{Client: client}, nil
 }
 
-// SendMessage envía un mensaje a través de MQTT.
 func (s *MQTTSender) SendMessage(data *entities.Data) error {
     token := s.Client.Publish("data/topic", 0, false, data.Message)
     token.Wait()
